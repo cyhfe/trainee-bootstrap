@@ -1,3 +1,3 @@
-export default const foo = () {
+exports.foo = function(){
   console.log('hello world')
 }
