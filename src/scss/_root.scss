@@ -1,0 +1,11 @@
+:root {
+  @each $color, $value in $colors {
+    --#{$variable-prefix}#{$color}: #{$value};
+  }
+
+  @each $theme, $color in $theme-colors {
+    --#{$variable-prefix}#{$theme}: #{$color};
+  }
+
+  --#{$variable-prefix}gradient: #{$gradient};
+}
