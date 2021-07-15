@@ -1,9 +1,6 @@
 import '../scss/bootstrap.scss'
-
-const foo = () => {
-  alert('hello world')
-}
+import Collapse from './collapse' 
 
 window.bootstrap = {
-  foo
+  Collapse
 }
