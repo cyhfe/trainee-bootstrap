@@ -1,4 +1,7 @@
-import BaseComponent from "./base-components"
+import BaseComponent from './base-components'
+import EventHandler from './dom/event-handler'
+
+// 常量
 const CLASS_NAME_SHOW = 'show'
 const CLASS_NAME_COLLAPSE = 'collapse'
 const CLASS_NAME_COLLAPSING = 'collapsing'
@@ -13,7 +16,7 @@ const EVENT_HIDDEN = `hidden${EVENT_KEY}`
 
 const Default = {
   toggle: true,
-  parent: ''
+  parent: '',
 }
 
 export default class Collapse extends BaseComponent {
@@ -36,44 +39,64 @@ export default class Collapse extends BaseComponent {
   }
 
   show() {
-    if (this._isTransitioning || this._element.classList.contains(CLASS_NAME_SHOW)) {
+    if (
+      this._isTransitioning ||
+      this._element.classList.contains(CLASS_NAME_SHOW)
+    ) {
       return
     }
 
+    const startEvent = EventHandler.trigger(this._element, EVENT_SHOW)
+
     this._element.classList.remove(CLASS_NAME_COLLAPSE)
     this._element.classList.add(CLASS_NAME_COLLAPSING)
+
     this._element.style['height'] = 0
+
     this.setTransitioning(true)
+    this._element.style['height'] = `${this._element['scrollHeight']}px`
+
     const complete = () => {
       this._element.classList.remove(CLASS_NAME_COLLAPSING)
       this._element.classList.add(CLASS_NAME_COLLAPSE, CLASS_NAME_SHOW)
       this._element.style['height'] = ''
 
       this.setTransitioning(false)
-
-
-      // this._element.dispatchEvent(EVENT_SHOWN)
+      EventHandler.trigger(this._element, EVENT_SHOWN)
     }
-    // this._queueCallback(complete, this._element, true)
-    this._element.style['height'] = `${this._element['scrollHeight']}px`
-    setTimeout(complete, 400);
+    this._queueCallback(complete, this._element)
   }
 
   hide() {
-    if (this._isTransitioning || !this._element.classList.contains(CLASS_NAME_SHOW)) {
+    if (
+      this._isTransitioning ||
+      !this._element.classList.contains(CLASS_NAME_SHOW)
+    ) {
       return
     }
-    // this._element.dispatch(EVENT_HIDE)
+
+    EventHandler.trigger(this._element, EVENT_HIDE)
+
+    this._element.style['height'] = `${
+      this._element.getBoundingClientRect()['height']
+    }px`
+
     this._element.classList.add(CLASS_NAME_COLLAPSING)
     this._element.classList.remove(CLASS_NAME_COLLAPSE, CLASS_NAME_SHOW)
+
+    void this._element.offsetHeight //reflow 设定动画的初始状态
+
     this.setTransitioning(true)
+
+    this._element.style['height'] = ''
+
     const complete = () => {
       this.setTransitioning(false)
       this._element.classList.remove(CLASS_NAME_COLLAPSING)
       this._element.classList.add(CLASS_NAME_COLLAPSE)
-      // this._element.dispatch(EVENT_HIDDEN)
+      EventHandler.trigger(this._element, EVENT_HIDDEN)
     }
-    complete()
+    this._queueCallback(complete, this._element)
   }
 
   setTransitioning(isTransitioning) {

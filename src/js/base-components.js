@@ -1,4 +1,4 @@
-import { getElement } from "./util/index"
+import { getElement, executeAfterTransition } from "./util/index"
 
 
 export default class BaseComponent {
@@ -9,7 +9,7 @@ export default class BaseComponent {
     }
     this._element = element
   }
-  _queueCallback() {
-    
+  _queueCallback(callback, element) {
+    executeAfterTransition(callback, element)
   }
 }

@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
     <style></style>
   </head>
   <body>
@@ -13,57 +12,12 @@
       <button id="btn">btn</button>
     </p>
     <div class="collapse" id="collapseExample">
-      <div>
+      <div style="padding: 20px;background: #eee;">
         <p>
           Some placeholder content for the collapse component. This panel is
           hidden by default but revealed when the user activates the relevant
           trigger.
         </p>
-        <p>
-          Some placeholder content for the collapse component. This panel is
-          hidden by default but revealed when the user activates the relevant
-          trigger.
-        </p>
-        <p>
-          Some placeholder content for the collapse component. This panel is
-          hidden by default but revealed when the user activates the relevant
-          trigger.
-        </p>
-        <p>
-          Some placeholder content for the collapse component. This panel is
-          hidden by default but revealed when the user activates the relevant
-          trigger.
-        </p>
-        <p>
-          Some placeholder content for the collapse component. This panel is
-          hidden by default but revealed when the user activates the relevant
-          trigger.
-        </p>
-        <p>
-          Some placeholder content for the collapse component. This panel is
-          hidden by default but revealed when the user activates the relevant
-          trigger.
-        </p>
-        <p>
-          Some placeholder content for the collapse component. This panel is
-          hidden by default but revealed when the user activates the relevant
-          trigger.
-        </p>
-        <p>
-          Some placeholder content for the collapse component. This panel is
-          hidden by default but revealed when the user activates the relevant
-          trigger.
-        </p>
-        <p>
-          Some placeholder content for the collapse component. This panel is
-          hidden by default but revealed when the user activates the relevant
-          trigger.
-        </p>        <p>
-          Some placeholder content for the collapse component. This panel is
-          hidden by default but revealed when the user activates the relevant
-          trigger.
-        </p>
-        
       </div>
     </div>
     <script src="./dist/bs.bundle.js"></script>
@@ -74,6 +28,18 @@
       btn.onclick = () => {
         collapse.toggle()
       }
+      c.addEventListener('show.bs.collapse', () => {
+        console.log('show')
+      })
+      c.addEventListener('shown.bs.collapse', () => {
+        console.log('shown')
+      })
+      c.addEventListener('hide.bs.collapse', () => {
+        console.log('hide')
+      })
+      c.addEventListener('hidden.bs.collapse', () => {
+        console.log('hidden')
+      })
     </script>
   </body>
 </html>
